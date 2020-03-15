@@ -3,10 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED963271241E28BC003AF2D4 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED963270241E28BC003AF2D4 /* ChatMessage.swift */; };
+		ED963273241E355F003AF2D4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = ED963272241E355F003AF2D4 /* README.md */; };
+		ED963275241E3599003AF2D4 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = ED963274241E3599003AF2D4 /* .gitignore */; };
+		ED963278241E35FB003AF2D4 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = ED963277241E35FB003AF2D4 /* Resolver */; };
+		ED96327C241E3893003AF2D4 /* SignalRHubConnectionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96327B241E3893003AF2D4 /* SignalRHubConnectionBuilder.swift */; };
+		ED96327E241E5410003AF2D4 /* SignalRHubConnectionBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96327D241E5410003AF2D4 /* SignalRHubConnectionBuilderProtocol.swift */; };
+		ED963280241E574B003AF2D4 /* AppDelegate+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96327F241E574B003AF2D4 /* AppDelegate+Injection.swift */; };
+		ED963282241E825F003AF2D4 /* SignalRMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED963281241E825F003AF2D4 /* SignalRMessage.swift */; };
 		EDBEC10E241D7A23001D9263 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBEC10D241D7A23001D9263 /* AppDelegate.swift */; };
 		EDBEC110241D7A23001D9263 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBEC10F241D7A23001D9263 /* SceneDelegate.swift */; };
 		EDBEC112241D7A23001D9263 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBEC111241D7A23001D9263 /* ViewController.swift */; };
@@ -15,6 +23,8 @@
 		EDBEC11A241D7A25001D9263 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDBEC118241D7A25001D9263 /* LaunchScreen.storyboard */; };
 		EDBEC125241D7A25001D9263 /* signalrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBEC124241D7A25001D9263 /* signalrTests.swift */; };
 		EDBEC130241D7A25001D9263 /* signalrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBEC12F241D7A25001D9263 /* signalrUITests.swift */; };
+		EDBEC13E241D840A001D9263 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBEC13D241D840A001D9263 /* ChatViewController.swift */; };
+		EDBEC140241D8AE9001D9263 /* MessageBubble.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDBEC13F241D8AE9001D9263 /* MessageBubble.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +45,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		ED963270241E28BC003AF2D4 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		ED963272241E355F003AF2D4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		ED963274241E3599003AF2D4 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		ED96327B241E3893003AF2D4 /* SignalRHubConnectionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalRHubConnectionBuilder.swift; sourceTree = "<group>"; };
+		ED96327D241E5410003AF2D4 /* SignalRHubConnectionBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalRHubConnectionBuilderProtocol.swift; sourceTree = "<group>"; };
+		ED96327F241E574B003AF2D4 /* AppDelegate+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swift"; sourceTree = "<group>"; };
+		ED963281241E825F003AF2D4 /* SignalRMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalRMessage.swift; sourceTree = "<group>"; };
 		EDBEC10A241D7A23001D9263 /* signalr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = signalr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDBEC10D241D7A23001D9263 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDBEC10F241D7A23001D9263 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +66,8 @@
 		EDBEC12B241D7A25001D9263 /* signalrUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = signalrUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDBEC12F241D7A25001D9263 /* signalrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signalrUITests.swift; sourceTree = "<group>"; };
 		EDBEC131241D7A25001D9263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EDBEC13D241D840A001D9263 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		EDBEC13F241D8AE9001D9263 /* MessageBubble.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageBubble.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED963278241E35FB003AF2D4 /* Resolver in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +96,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		ED963279241E383E003AF2D4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				ED963270241E28BC003AF2D4 /* ChatMessage.swift */,
+				ED963281241E825F003AF2D4 /* SignalRMessage.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		ED96327A241E3860003AF2D4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				ED96327B241E3893003AF2D4 /* SignalRHubConnectionBuilder.swift */,
+				ED96327D241E5410003AF2D4 /* SignalRHubConnectionBuilderProtocol.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		EDBEC101241D7A23001D9263 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +121,8 @@
 				EDBEC123241D7A25001D9263 /* signalrTests */,
 				EDBEC12E241D7A25001D9263 /* signalrUITests */,
 				EDBEC10B241D7A23001D9263 /* Products */,
+				ED963272241E355F003AF2D4 /* README.md */,
+				ED963274241E3599003AF2D4 /* .gitignore */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,9 +140,14 @@
 			isa = PBXGroup;
 			children = (
 				EDBEC10D241D7A23001D9263 /* AppDelegate.swift */,
+				ED96327F241E574B003AF2D4 /* AppDelegate+Injection.swift */,
 				EDBEC10F241D7A23001D9263 /* SceneDelegate.swift */,
 				EDBEC111241D7A23001D9263 /* ViewController.swift */,
+				EDBEC13D241D840A001D9263 /* ChatViewController.swift */,
+				ED96327A241E3860003AF2D4 /* Services */,
+				ED963279241E383E003AF2D4 /* Model */,
 				EDBEC113241D7A23001D9263 /* Main.storyboard */,
+				EDBEC13F241D8AE9001D9263 /* MessageBubble.xib */,
 				EDBEC116241D7A25001D9263 /* Assets.xcassets */,
 				EDBEC118241D7A25001D9263 /* LaunchScreen.storyboard */,
 				EDBEC11B241D7A25001D9263 /* Info.plist */,
@@ -144,6 +189,9 @@
 			dependencies = (
 			);
 			name = signalr;
+			packageProductDependencies = (
+				ED963277241E35FB003AF2D4 /* Resolver */,
+			);
 			productName = signalr;
 			productReference = EDBEC10A241D7A23001D9263 /* signalr.app */;
 			productType = "com.apple.product-type.application";
@@ -216,6 +264,9 @@
 				Base,
 			);
 			mainGroup = EDBEC101241D7A23001D9263;
+			packageReferences = (
+				ED963276241E35FB003AF2D4 /* XCRemoteSwiftPackageReference "Resolver" */,
+			);
 			productRefGroup = EDBEC10B241D7A23001D9263 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -234,7 +285,10 @@
 			files = (
 				EDBEC11A241D7A25001D9263 /* LaunchScreen.storyboard in Resources */,
 				EDBEC117241D7A25001D9263 /* Assets.xcassets in Resources */,
+				ED963273241E355F003AF2D4 /* README.md in Resources */,
 				EDBEC115241D7A23001D9263 /* Main.storyboard in Resources */,
+				ED963275241E3599003AF2D4 /* .gitignore in Resources */,
+				EDBEC140241D8AE9001D9263 /* MessageBubble.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,8 +313,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED963280241E574B003AF2D4 /* AppDelegate+Injection.swift in Sources */,
 				EDBEC112241D7A23001D9263 /* ViewController.swift in Sources */,
 				EDBEC10E241D7A23001D9263 /* AppDelegate.swift in Sources */,
+				ED96327E241E5410003AF2D4 /* SignalRHubConnectionBuilderProtocol.swift in Sources */,
+				ED96327C241E3893003AF2D4 /* SignalRHubConnectionBuilder.swift in Sources */,
+				EDBEC13E241D840A001D9263 /* ChatViewController.swift in Sources */,
+				ED963282241E825F003AF2D4 /* SignalRMessage.swift in Sources */,
+				ED963271241E28BC003AF2D4 /* ChatMessage.swift in Sources */,
 				EDBEC110241D7A23001D9263 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -590,6 +650,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ED963276241E35FB003AF2D4 /* XCRemoteSwiftPackageReference "Resolver" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Resolver.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ED963277241E35FB003AF2D4 /* Resolver */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ED963276241E35FB003AF2D4 /* XCRemoteSwiftPackageReference "Resolver" */;
+			productName = Resolver;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EDBEC102241D7A23001D9263 /* Project object */;
 }
