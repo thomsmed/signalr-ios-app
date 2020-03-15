@@ -24,5 +24,5 @@ struct SignalRMessage: Codable {
     var invocationId: String?
     var error: String?
     var result: String?
-    var arguments: [String]?
+    var arguments: [[String: String?]]?
 }

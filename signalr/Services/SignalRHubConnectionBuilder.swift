@@ -10,7 +10,7 @@ import Foundation
 
 class SignalRHubConnectionBuilder: SignalRHubConnectionBuilderProtocol {
 
-    // TODO: Bruke dedikert DispatchQueue
+    // TODO: Use a dedicated DispatchQueue and or OperationQueue
     var dispatchQueue: DispatchQueue = DispatchQueue.main
     
     var url: URL?
@@ -25,16 +25,15 @@ class SignalRHubConnectionBuilder: SignalRHubConnectionBuilderProtocol {
     }
 }
 
-private enum HubConnectionState {
-    case created
-    case started
-    case stopped
-}
-
 class SignalRHubConnection: NSObject, SignalRHubConnectionProtocol {
+    private enum HubConnectionState {
+        case created
+        case started
+        case stopped
+    }
     
     // MARK: Constants
-    let delimiter = "\u{1E}";
+    let delimiter: Character = "\u{1E}";
     
     private var state: HubConnectionState = .created
     private let decoder = JSONDecoder()
@@ -44,6 +43,11 @@ class SignalRHubConnection: NSObject, SignalRHubConnectionProtocol {
     var delegate: SignalRHubConnectionDelegate?
     var session: URLSession?
     var webSocketTask: URLSessionWebSocketTask?
+    
+    var messageEventListeners = [String: (ChatMessage) -> Void]()
+    var groupEventListeners = [String: (ChatGroup) -> Void]()
+    var userEventListeners = [String: (ChatUser) -> Void]()
+    var invocationCallbacks = [String: (Error?) -> Void]()
     
     required init(withUrl url: URL) {
         super.init()
@@ -61,42 +65,84 @@ class SignalRHubConnection: NSObject, SignalRHubConnectionProtocol {
     
     func onReceiveMessage(_ completionHandler: @escaping (ChatMessage) -> Void) {
         if state != .started { return }
-        print("Got message")
+        messageEventListeners["RecieveMessage"] = completionHandler
     }
     
     func onUserJoinedGroup(_ completionHandler: @escaping (ChatGroup) -> Void) {
         if state != .started { return }
-        print("Joined group")
+        groupEventListeners["UserJoinedGroup"] = completionHandler
     }
     
     func onUserLeftGroup(_ completionHandler: @escaping (ChatGroup) -> Void) {
         if state != .started { return }
-        print("Left group")
+        groupEventListeners["UserLeftGroup"] = completionHandler
     }
     
     func onUserConnected(_ completionHandler: @escaping (ChatUser) -> Void) {
         if state != .started { return }
-        print("User connected")
+        userEventListeners["UserConnected"] = completionHandler
     }
     
     func onUserDisconnected(_ completionHandler: @escaping (ChatUser) -> Void) {
         if state != .started { return }
-        print("User disconnected")
+        userEventListeners["UserDisconnected"] = completionHandler
     }
     
-    func invokeSendMessage(_ completionHandler: (() -> Void)?) {
+    func invokeSendMessage(_ message: ChatMessage, _ completionHandler: ((Error?) -> Void)?) {
         if state != .started { return }
+        let key = "\(invocationCallbacks.count)"
+        let target = message.reciever != "" ? "SendMessageToUser" : message.group != "" ? "SendMessageToGroup" : "SendMessageToCaller"
+        let argument: [String: String?] = ["reciever": message.reciever, "group": message.group, "body": message.body]
+        let message = SignalRMessage(type: .invocation, target: target, invocationId: key, error: nil, result: nil, arguments: [argument])
         
+        invocationCallbacks[key] = completionHandler
+        
+        guard let messageData = try? encoder.encode(message),
+            var messageString = String(data: messageData, encoding: .utf8) else {
+            return
+        }
+        
+        messageString.append(delimiter)
+        
+        webSocketTask?.send(URLSessionWebSocketTask.Message.string(messageString), completionHandler: onWebSocketSendComplete)
     }
     
-    func invokeJoinGroup(_ completionHandler: (() -> Void)?) {
+    func invokeJoinGroup(_ group: ChatGroup, _ completionHandler: ((Error?) -> Void)?) {
         if state != .started { return }
+        let key = "\(invocationCallbacks.count)"
+        let target = "JoinGroup"
+        let argument: [String: String?] = ["id": group.id]
+        let message = SignalRMessage(type: .invocation, target: target, invocationId: key, error: nil, result: nil, arguments: [argument])
         
+        invocationCallbacks[key] = completionHandler
+        
+        guard let messageData = try? encoder.encode(message),
+            var messageString = String(data: messageData, encoding: .utf8) else {
+            return
+        }
+        
+        messageString.append(delimiter)
+        
+        webSocketTask?.send(URLSessionWebSocketTask.Message.string(messageString), completionHandler: onWebSocketSendComplete)
     }
     
-    func invokeLeaveGroup(_ completionHandler: (() -> Void)?) {
+    func invokeLeaveGroup(_ group: ChatGroup, _ completionHandler: ((Error?) -> Void)?) {
         if state != .started { return }
+        let key = "\(invocationCallbacks.count)"
+        let target = "LeavGroup"
+        let argument: [String: String?] = ["id": group.id]
+        let message = SignalRMessage(type: .invocation, target: target, invocationId: key, error: nil, result: nil, arguments: [argument])
         
+        invocationCallbacks[key] = completionHandler
+        
+        guard let messageData = try? encoder.encode(message),
+            var messageString = String(data: messageData, encoding: .utf8) else {
+            return
+        }
+        
+        messageString.append(delimiter)
+        
+        webSocketTask?.send(URLSessionWebSocketTask.Message.string(messageString), completionHandler: onWebSocketSendComplete)
     }
     
     // MARK: Private Methods
@@ -112,7 +158,7 @@ class SignalRHubConnection: NSObject, SignalRHubConnectionProtocol {
                 case .string(let dataString):
                     self.handleDataString(dataString)
                 @unknown default:
-                    print("This bad...")
+                    print("This is bad...")
                 }
                 self.receive()
             }
@@ -120,35 +166,99 @@ class SignalRHubConnection: NSObject, SignalRHubConnectionProtocol {
     }
     
     private func handleDataString(_ dataString: String) {
-        guard let data = dataString.data(using: .utf8), let message = try? decoder.decode(SignalRMessage.self, from: data) else {
-            return
+        let dataStringMessages = dataString.split(separator: delimiter)
+        for dataStringMessage in dataStringMessages {
+            guard let data = dataStringMessage.data(using: .utf8), let message = try? decoder.decode(SignalRMessage.self, from: data) else {
+                return
+            }
+            
+            guard let type = message.type else {
+                delegate?.signalRHubConnectionConnectionSuccess(self)
+                return
+            }
+            
+            if type == .ping {
+//                guard let pingMessageData = try? encoder.encode(SignalRMessage(type: .ping, invocationId: "Some shit")),
+//                    var pingMessage = String(data: pingMessageData, encoding: .utf8) else {
+//                    return
+//                }
+//                pingMessage.append(delimiter)
+                print(dataStringMessage)
+                webSocketTask?.send(URLSessionWebSocketTask.Message.string(dataStringMessage + ""), completionHandler: onWebSocketSendComplete)
+            } else if type == .close {
+                state = .stopped
+                webSocketTask?.cancel()
+            } else {
+                handleMessage(message, forType: type)
+            }
         }
-        
-        guard let type = message.type else {
-            delegate?.signalRHubConnectionConnectionSuccess(self)
-            return
-        }
-        
-        if type == .ping {
-            let pingMessage = "{\"type\":\(SignalRMessageType.ping)}" + delimiter
-            webSocketTask?.send(URLSessionWebSocketTask.Message.string(pingMessage), completionHandler: onWebSocketSendComplete)
-        }
-        
-        handleMessage(message, forType: type)
     }
     
     private func handleMessage(_ message: SignalRMessage, forType type: SignalRMessageType){
         if type == .completion {
-            
+            handleCompletionMessage(message)
         } else if type == .invocation {
+            handleInvocationMessage(message)
+        }
+    }
+    
+    private func handleCompletionMessage(_ message: SignalRMessage) {
+        guard let invocationId = message.invocationId else {
+            return
+        }
         
+        guard let callback = invocationCallbacks[invocationId] else {
+            return
+        }
+        
+        if let errorMessage = message.error {
+            callback(SignalRHubConnectionInvocationError.error(message: errorMessage))
+        } else {
+            callback(nil)
+        }
+        
+        invocationCallbacks.removeValue(forKey: invocationId)
+    }
+    
+    private func handleInvocationMessage(_ message: SignalRMessage) {
+        guard let target = message.target else {
+            return
+        }
+        
+        guard let arguments = message.arguments, arguments.count > 0 else {
+            return
+        }
+        
+        let argumentDictionary = arguments[0]
+        if target.contains("Message") {
+            let chatMessage = ChatMessage(id: (argumentDictionary["id"] ?? "") ?? "",
+                                          sender: (argumentDictionary["sender"] ?? "") ?? "",
+                                          reciever: (argumentDictionary["reciever"] ?? "") ?? "",
+                                          group: (argumentDictionary["group"] ?? "") ?? "",
+                                          header: (argumentDictionary["header"] ?? "") ?? "",
+                                          body: (argumentDictionary["body"] ?? "") ?? "")
+            
+            if let listener = messageEventListeners["RecieveMessage"] {
+                listener(chatMessage)
+            }
+        } else if target.contains("Group") {
+            let chatGroup = ChatGroup(id: (argumentDictionary["id"] ?? "") ?? "", name: (argumentDictionary["name"] ?? "") ?? "", participant: (argumentDictionary["participant"] ?? "") ?? "")
+            
+            if let listener = groupEventListeners[target] {
+                listener(chatGroup)
+            }
+        } else if target.contains("onnected") {
+            let chatUser = ChatUser(id: (argumentDictionary["id"] ?? "") ?? "", name: (argumentDictionary["name"] ?? "") ?? "")
+            
+            if let listener = userEventListeners[target] {
+                listener(chatUser)
+            }
         }
     }
     
     private func onWebSocketSendComplete(error: Error?) {
         if let error = error {
             print(error.localizedDescription)
-            self.state = .stopped
         } else {
             // Success
         }
@@ -170,7 +280,8 @@ extension SignalRHubConnection: URLSessionWebSocketDelegate {
     }
     
     private func startHandshake() {
-        let handshakeMessage = "{\"protocol\":\"json\",\"version\":1}" + delimiter
-        webSocketTask!.send(URLSessionWebSocketTask.Message.string(handshakeMessage), completionHandler: onWebSocketSendComplete)
+        var handshakeMessage = "{\"protocol\":\"json\",\"version\":1}"
+        handshakeMessage.append(delimiter)
+        webSocketTask?.send(URLSessionWebSocketTask.Message.string(handshakeMessage), completionHandler: onWebSocketSendComplete)
     }
 }

@@ -50,16 +50,26 @@ class ChatViewController: UIViewController {
         // construct message
         // send
         
-        let message = ChatMessage(id: UUID().uuidString, sender: "Myself", reciever: "Myself", group: "Global", header: "", body: "Hi there!")
-        chatMessages.append(message)
+        let message = ChatMessage(id: UUID().uuidString, sender: "", reciever: "", group: "", header: "", body: "Hi there!")
         
+        signalRChatHubConnection?.invokeSendMessage(message, nil)
     }
     
     @IBAction func togglePrivateGroup(_ sender: UIButton) {
         if let title = sender.currentTitle, title == "Join Private" {
             sender.setTitle("Leave Private", for: .normal)
+            signalRChatHubConnection?.invokeJoinGroup(ChatGroup(id: "private"), { _ in
+                self.chatMessages.append(ChatMessage(body: "You joined group private!"))
+                self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
+                self.chatGroups.append(ChatGroup(id: "private"))
+            })
         } else {
             sender.setTitle("Join Private", for: .normal)
+            signalRChatHubConnection?.invokeLeaveGroup(ChatGroup(id: "private"), { _ in
+                self.chatMessages.append(ChatMessage(body: "You left group private..."))
+                self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
+                self.chatGroups.removeAll(where: { chatGroup in chatGroup.id == "private" })
+            })
         }
     }
     
@@ -81,8 +91,31 @@ class ChatViewController: UIViewController {
             .build()
         signalRChatHubConnection!.delegate = self
         signalRChatHubConnection!.start()
+        setupListeners()
     }
     
+    private func setupListeners() {
+        signalRChatHubConnection?.onReceiveMessage({ chatMessage in
+            self.chatMessages.append(chatMessage)
+            self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
+        })
+        signalRChatHubConnection?.onUserJoinedGroup({ group in
+            self.chatMessages.append(ChatMessage(body: "UserJoinedGroup \(group.id) (\(group.participant))"))
+            self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
+        })
+        signalRChatHubConnection?.onUserLeftGroup({ group in
+            self.chatMessages.append(ChatMessage(body: "UserLeftGroup \(group.id) (\(group.participant))"))
+            self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
+        })
+        signalRChatHubConnection?.onUserConnected({ chatUser in
+            self.chatMessages.append(ChatMessage(body: "UserConnected (\(chatUser.id))"))
+            self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
+        })
+        signalRChatHubConnection?.onUserDisconnected({ chatUser in
+            self.chatMessages.append(ChatMessage(body: "UserDisconnected (\(chatUser.id))"))
+            self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
+        })
+    }
 }
 
 extension ChatViewController: UIPickerViewDelegate {
@@ -126,6 +159,12 @@ extension ChatViewController: UITableViewDataSourcePrefetching {
 
 extension ChatViewController: SignalRHubConnectionDelegate {
     func signalRHubConnectionConnectionSuccess(_ signalRHubConnection: SignalRHubConnection) {
-        print("Connection success!")
+        self.chatMessages.append(ChatMessage(body: "Connection success!"))
+        self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
+        self.signalRChatHubConnection?.invokeJoinGroup(ChatGroup(id: "global"), { _ in
+            self.chatMessages.append(ChatMessage(body: "You joined group global!"))
+            self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
+            self.chatGroups.append(ChatGroup(id: "global"))
+        })
     }
 }

@@ -8,8 +8,8 @@
 
 import Foundation
 
-enum SignalRHubFailure: Error {
-    
+enum SignalRHubConnectionInvocationError: Error {
+    case error(message: String)
 }
 
 enum SignalRHubConnectionInvocationMethod {
@@ -48,7 +48,7 @@ protocol SignalRHubConnectionProtocol: AnyObject {
     func onUserLeftGroup(_ completionHandler: @escaping (_ group: ChatGroup) -> Void)
     func onUserConnected(_ completionHandler: @escaping (_ group: ChatUser) -> Void)
     func onUserDisconnected(_ completionHandler: @escaping (_ group: ChatUser) -> Void)
-    func invokeSendMessage(_ completionHandler: (() -> Void)?)
-    func invokeJoinGroup(_ completionHandler: (() -> Void)?)
-    func invokeLeaveGroup(_ completionHandler: (() -> Void)?)
+    func invokeSendMessage(_ message: ChatMessage, _ completionHandler: ((_ error: Error?) -> Void)?)
+    func invokeJoinGroup(_ group: ChatGroup, _ completionHandler: ((_ error: Error?) -> Void)?)
+    func invokeLeaveGroup(_ group: ChatGroup, _ completionHandler: ((_ error: Error?) -> Void)?)
 }
