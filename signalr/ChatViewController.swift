@@ -22,7 +22,7 @@ class ChatViewController: UIViewController {
     // MARK: Properties
     var signalRChatHubConnection: SignalRHubConnectionProtocol?
     
-    var chatGroups = [ChatGroup]()
+    var chatGroups: [ChatGroup] = [ChatGroup(id: "", name: "Group: myself", participant: "")]
     var chatMessages = [ChatMessage]()
     
     // MARK: Outlets
@@ -77,12 +77,17 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        let selectedGroup = chatGroups[0]
         let groupPicker = UIPickerView()
         groupPicker.delegate = self
         groupPicker.dataSource = self
+        groupPicker.selectRow(0, inComponent: 0, animated: false)
         groupLabel.inputView = groupPicker
+        groupLabel.text = selectedGroup.name
         
-        
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -94,6 +99,7 @@ class ChatViewController: UIViewController {
         setupListeners()
     }
     
+    // MARK: Private Methods
     private func setupListeners() {
         signalRChatHubConnection?.onReceiveMessage({ chatMessage in
             self.chatMessages.append(chatMessage)
@@ -118,12 +124,18 @@ class ChatViewController: UIViewController {
     }
 }
 
+// MARK: UIPickerViewDelegate
 extension ChatViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return chatGroups[row].id
+        return chatGroups[row].name
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        groupLabel.text = chatGroups[row].name
     }
 }
 
+// MARK: UIPickerViewDataSource
 extension ChatViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -134,10 +146,12 @@ extension ChatViewController: UIPickerViewDataSource {
     }
 }
 
+// MARK: UITableViewDelegate
 extension ChatViewController: UITableViewDelegate {
     
 }
 
+// MARK: UITableViewDataSource
 extension ChatViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return chatMessages.count
@@ -151,12 +165,14 @@ extension ChatViewController: UITableViewDataSource {
     }
 }
 
+// MARK: UITableViewDataSourcePrefetching
 extension ChatViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         
     }
 }
 
+// MARK: SignalRHubConnectionDelegate
 extension ChatViewController: SignalRHubConnectionDelegate {
     func signalRHubConnectionConnectionSuccess(_ signalRHubConnection: SignalRHubConnection) {
         self.chatMessages.append(ChatMessage(body: "Connection success!"))
@@ -164,7 +180,7 @@ extension ChatViewController: SignalRHubConnectionDelegate {
         self.signalRChatHubConnection?.invokeJoinGroup(ChatGroup(id: "global"), { _ in
             self.chatMessages.append(ChatMessage(body: "You joined group global!"))
             self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
-            self.chatGroups.append(ChatGroup(id: "global"))
+            self.chatGroups.append(ChatGroup(id: "global", name: "Group: global"))
         })
     }
 }
