@@ -64,13 +64,13 @@
                                     <action selector="togglePrivateGroup:" destination="fmH-J3-EdF" eventType="touchUpInside" id="iRe-ez-auX"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="knF-zk-jSe" userLabel="Selected Group Text Field">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="knF-zk-jSe" userLabel="Selected Group Text Field">
                                 <rect key="frame" x="5" y="93" width="299" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="dS3-Km-cj3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yto-6b-qqH" userLabel="Messages Table View">
                                 <rect key="frame" x="5" y="148" width="404" height="659"/>
@@ -105,8 +105,10 @@
                     <connections>
                         <outlet property="groupLabel" destination="knF-zk-jSe" id="BEj-X8-VlE"/>
                         <outlet property="sendButton" destination="rba-7Y-poa" id="Phz-Kh-McX"/>
+                        <outlet property="sendButtonConstraint" destination="XEh-EM-fw2" id="KEg-HX-p9B"/>
                         <outlet property="tableView" destination="yto-6b-qqH" id="t97-xc-w96"/>
                         <outlet property="textView" destination="wor-ON-Y47" id="BSt-cV-hUi"/>
+                        <outlet property="textViewBottomConstraint" destination="GWr-ec-ImQ" id="sP4-Xm-n6U"/>
                         <outlet property="togglePrivateButton" destination="Qi2-HQ-mEM" id="4VC-0L-wmA"/>
                     </connections>
                 </viewController>

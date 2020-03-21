@@ -45,6 +45,8 @@ class ChatViewController: UIViewController {
         }
     }
     @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var textViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var sendButtonConstraint: NSLayoutConstraint!
     
     // MARK: Actions
     @IBAction func sendMessage(_ sender: UIButton) {
@@ -72,15 +74,13 @@ class ChatViewController: UIViewController {
         if let title = sender.currentTitle, title == "Join Private" {
             sender.setTitle("Leave Private", for: .normal)
             signalRChatHubConnection?.invokeJoinGroup(ChatGroup(id: "private"), { _ in
-                self.chatMessages.append(ChatMessage(body: "You joined group private!"))
+                self.appendToChat(chatMessage: ChatMessage(body: "You joined group private!"))
                 self.chatGroups.append(ChatGroup(id: "private", name: "Group: private"))
-                self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
             })
         } else {
             sender.setTitle("Join Private", for: .normal)
             signalRChatHubConnection?.invokeLeaveGroup(ChatGroup(id: "private"), { _ in
-                self.chatMessages.append(ChatMessage(body: "You left group private..."))
-                self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
+                self.appendToChat(chatMessage: ChatMessage(body: "You left group private..."))
                 
                 guard let indexToRemove = self.chatGroups.firstIndex(where: { chatGroup in
                     return chatGroup.id == "private"
@@ -108,9 +108,13 @@ class ChatViewController: UIViewController {
         groupLabel.inputView = groupPicker
         groupLabel.text = chatGroups[0].name
         
+        // Enable self-sizing table view cells
+        tableView.estimatedRowHeight = 100.0
+        tableView.rowHeight = UITableView.automaticDimension
+        
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
+        tableView.addGestureRecognizer(tap)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -120,30 +124,64 @@ class ChatViewController: UIViewController {
         signalRChatHubConnection!.delegate = self
         signalRChatHubConnection!.start()
         setupListeners()
+        addObservers()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        signalRChatHubConnection?.stop()
+        removeObservers()
     }
     
     // MARK: Private Methods
+    private func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc
+    private func keyboardWillShow(notification: NSNotification) {
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size else {
+            return
+        }
+        self.textViewBottomConstraint.constant = keyboardSize.height
+        self.sendButtonConstraint.constant = keyboardSize.height
+        self.view.layoutIfNeeded()
+    }
+    
+    @objc
+    private func keyboardWillHide(notification: NSNotification) {
+        self.textViewBottomConstraint.constant = 0
+        self.sendButtonConstraint.constant = 0
+        self.view.layoutIfNeeded()
+    }
+    
     private func setupListeners() {
         signalRChatHubConnection?.onReceiveMessage({ chatMessage in
-            self.chatMessages.append(chatMessage)
-            self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
+            self.appendToChat(chatMessage: chatMessage)
         })
         signalRChatHubConnection?.onUserJoinedGroup({ group in
-            self.chatMessages.append(ChatMessage(body: "UserJoinedGroup \(group.id) (\(group.participant))"))
-            self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
+            self.appendToChat(chatMessage: ChatMessage(body: "UserJoinedGroup \(group.id) (\(group.participant))"))
         })
         signalRChatHubConnection?.onUserLeftGroup({ group in
-            self.chatMessages.append(ChatMessage(body: "UserLeftGroup \(group.id) (\(group.participant))"))
-            self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
+            self.appendToChat(chatMessage: ChatMessage(body: "UserLeftGroup \(group.id) (\(group.participant))"))
         })
         signalRChatHubConnection?.onUserConnected({ chatUser in
-            self.chatMessages.append(ChatMessage(body: "UserConnected (\(chatUser.id))"))
-            self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
+            self.appendToChat(chatMessage: ChatMessage(body: "UserConnected (\(chatUser.id))"))
         })
         signalRChatHubConnection?.onUserDisconnected({ chatUser in
-            self.chatMessages.append(ChatMessage(body: "UserDisconnected (\(chatUser.id))"))
-            self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
+            self.appendToChat(chatMessage: ChatMessage(body: "UserDisconnected (\(chatUser.id))"))
         })
+    }
+    
+    private func appendToChat(chatMessage: ChatMessage) {
+        chatMessages.append(chatMessage)
+        tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
+        tableView.scrollToRow(at: IndexPath(row: chatMessages.count - 1, section: 0), at: .bottom, animated: true)
     }
 }
 
@@ -198,11 +236,9 @@ extension ChatViewController: UITableViewDataSourcePrefetching {
 // MARK: SignalRHubConnectionDelegate
 extension ChatViewController: SignalRHubConnectionDelegate {
     func signalRHubConnectionConnectionSuccess(_ signalRHubConnection: SignalRHubConnection) {
-        self.chatMessages.append(ChatMessage(body: "Connection success!"))
-        self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
+        appendToChat(chatMessage: ChatMessage(body: "Connection success!"))
         self.signalRChatHubConnection?.invokeJoinGroup(ChatGroup(id: "global"), { _ in
-            self.chatMessages.append(ChatMessage(body: "You joined group global!"))
-            self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
+            self.appendToChat(chatMessage: ChatMessage(body: "You joined group global!"))
             self.chatGroups.append(ChatGroup(id: "global", name: "Group: global"))
         })
     }

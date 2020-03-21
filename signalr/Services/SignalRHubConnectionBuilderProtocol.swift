@@ -43,6 +43,7 @@ protocol SignalRHubConnectionProtocol: AnyObject {
     var delegate: SignalRHubConnectionDelegate? { get set }
     init(withUrl url: URL)
     func start()
+    func stop()
     func onReceiveMessage(_ completionHandler: @escaping (_ message: ChatMessage) -> Void)
     func onUserJoinedGroup(_ completionHandler: @escaping (_ group: ChatGroup) -> Void)
     func onUserLeftGroup(_ completionHandler: @escaping (_ group: ChatGroup) -> Void)

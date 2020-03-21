@@ -63,6 +63,12 @@ class SignalRHubConnection: NSObject, SignalRHubConnectionProtocol {
         webSocketTask!.resume()
     }
     
+    func stop() {
+        if state != .started { return }
+        state = .stopped
+        webSocketTask?.cancel()
+    }
+    
     func onReceiveMessage(_ completionHandler: @escaping (ChatMessage) -> Void) {
         if state != .started { return }
         messageEventListeners["RecieveMessage"] = completionHandler
