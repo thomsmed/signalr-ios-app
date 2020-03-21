@@ -22,7 +22,6 @@
 		EDBEC125241D7A25001D9263 /* signalrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBEC124241D7A25001D9263 /* signalrTests.swift */; };
 		EDBEC130241D7A25001D9263 /* signalrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBEC12F241D7A25001D9263 /* signalrUITests.swift */; };
 		EDBEC13E241D840A001D9263 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBEC13D241D840A001D9263 /* ChatViewController.swift */; };
-		EDBEC140241D8AE9001D9263 /* MessageBubble.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDBEC13F241D8AE9001D9263 /* MessageBubble.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,7 +62,6 @@
 		EDBEC12F241D7A25001D9263 /* signalrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signalrUITests.swift; sourceTree = "<group>"; };
 		EDBEC131241D7A25001D9263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EDBEC13D241D840A001D9263 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
-		EDBEC13F241D8AE9001D9263 /* MessageBubble.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageBubble.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,7 +139,6 @@
 				ED96327A241E3860003AF2D4 /* Services */,
 				ED963279241E383E003AF2D4 /* Model */,
 				EDBEC113241D7A23001D9263 /* Main.storyboard */,
-				EDBEC13F241D8AE9001D9263 /* MessageBubble.xib */,
 				EDBEC116241D7A25001D9263 /* Assets.xcassets */,
 				EDBEC118241D7A25001D9263 /* LaunchScreen.storyboard */,
 				EDBEC11B241D7A25001D9263 /* Info.plist */,
@@ -282,7 +279,6 @@
 				ED963273241E355F003AF2D4 /* README.md in Resources */,
 				EDBEC115241D7A23001D9263 /* Main.storyboard in Resources */,
 				ED963275241E3599003AF2D4 /* .gitignore in Resources */,
-				EDBEC140241D8AE9001D9263 /* MessageBubble.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
