@@ -25,6 +25,8 @@ class ChatViewController: UIViewController {
     var chatGroups: [ChatGroup] = [ChatGroup(id: "", name: "Group: myself", participant: "")]
     var chatMessages = [ChatMessage]()
     
+    var groupPicker = UIPickerView()
+    
     // MARK: Outlets
     @IBOutlet weak var groupLabel: UITextField!
     @IBOutlet weak var togglePrivateButton: UIButton!
@@ -46,13 +48,24 @@ class ChatViewController: UIViewController {
     
     // MARK: Actions
     @IBAction func sendMessage(_ sender: UIButton) {
-        // Get selected group id
-        // construct message
-        // send
+        guard let messageBody = textView.text, !messageBody.isEmpty else {
+            return
+        }
         
-        let message = ChatMessage(id: UUID().uuidString, sender: "", reciever: "", group: "", header: "", body: "Hi there!")
+        let selectedGroupIndex = groupPicker.selectedRow(inComponent: 0)
+        let selectedGroup = chatGroups[selectedGroupIndex]
+        let message = ChatMessage(
+            id: UUID().uuidString,
+            sender: "",
+            reciever: "",
+            group:
+            selectedGroup.id,
+            header: "",
+            body: messageBody)
         
         signalRChatHubConnection?.invokeSendMessage(message, nil)
+        
+        textView.text = ""
     }
     
     @IBAction func togglePrivateGroup(_ sender: UIButton) {
@@ -60,15 +73,27 @@ class ChatViewController: UIViewController {
             sender.setTitle("Leave Private", for: .normal)
             signalRChatHubConnection?.invokeJoinGroup(ChatGroup(id: "private"), { _ in
                 self.chatMessages.append(ChatMessage(body: "You joined group private!"))
+                self.chatGroups.append(ChatGroup(id: "private", name: "Group: private"))
                 self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
-                self.chatGroups.append(ChatGroup(id: "private"))
             })
         } else {
             sender.setTitle("Join Private", for: .normal)
             signalRChatHubConnection?.invokeLeaveGroup(ChatGroup(id: "private"), { _ in
                 self.chatMessages.append(ChatMessage(body: "You left group private..."))
                 self.tableView.insertRows(at: [IndexPath(row: self.chatMessages.count - 1, section: 0)], with: .bottom)
-                self.chatGroups.removeAll(where: { chatGroup in chatGroup.id == "private" })
+                
+                guard let indexToRemove = self.chatGroups.firstIndex(where: { chatGroup in
+                    return chatGroup.id == "private"
+                }) else {
+                    return
+                }
+                
+                self.chatGroups.remove(at: indexToRemove)
+                if self.groupPicker.selectedRow(inComponent: 0) == indexToRemove {
+                    self.groupPicker.selectRow(0, inComponent: 0, animated: false)
+                    self.groupLabel.text = self.chatGroups[0].name
+                }
+                self.groupPicker.reloadComponent(0)
             })
         }
     }
@@ -77,13 +102,11 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let selectedGroup = chatGroups[0]
-        let groupPicker = UIPickerView()
         groupPicker.delegate = self
         groupPicker.dataSource = self
         groupPicker.selectRow(0, inComponent: 0, animated: false)
         groupLabel.inputView = groupPicker
-        groupLabel.text = selectedGroup.name
+        groupLabel.text = chatGroups[0].name
         
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         tap.cancelsTouchesInView = false

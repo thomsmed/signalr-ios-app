@@ -178,13 +178,9 @@ class SignalRHubConnection: NSObject, SignalRHubConnectionProtocol {
             }
             
             if type == .ping {
-//                guard let pingMessageData = try? encoder.encode(SignalRMessage(type: .ping, invocationId: "Some shit")),
-//                    var pingMessage = String(data: pingMessageData, encoding: .utf8) else {
-//                    return
-//                }
-//                pingMessage.append(delimiter)
-                print(dataStringMessage)
-                webSocketTask?.send(URLSessionWebSocketTask.Message.string(dataStringMessage + ""), completionHandler: onWebSocketSendComplete)
+                var pingMessage = String(dataStringMessage)
+                pingMessage.append(delimiter)
+                webSocketTask?.send(URLSessionWebSocketTask.Message.string(pingMessage), completionHandler: onWebSocketSendComplete)
             } else if type == .close {
                 state = .stopped
                 webSocketTask?.cancel()
