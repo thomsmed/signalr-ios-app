@@ -8,7 +8,7 @@
 
 import XCTest
 
-class signalrUITests: XCTestCase {
+class signalrClientUITests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.

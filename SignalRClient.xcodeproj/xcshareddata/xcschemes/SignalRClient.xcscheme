@@ -15,9 +15,23 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EDBEC109241D7A23001D9263"
-               BuildableName = "signalr.app"
-               BlueprintName = "signalr"
-               ReferencedContainer = "container:signalr.xcodeproj">
+               BuildableName = "SignalRClient.app"
+               BlueprintName = "SignalRClient"
+               ReferencedContainer = "container:SignalRClient.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EDBEC11F241D7A25001D9263"
+               BuildableName = "SignalRClientTests.xctest"
+               BlueprintName = "SignalRClientTests"
+               ReferencedContainer = "container:SignalRClient.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EDBEC11F241D7A25001D9263"
-               BuildableName = "signalrTests.xctest"
-               BlueprintName = "signalrTests"
-               ReferencedContainer = "container:signalr.xcodeproj">
+               BuildableName = "SignalRClientTests.xctest"
+               BlueprintName = "SignalRClientTests"
+               ReferencedContainer = "container:SignalRClient.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +57,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EDBEC12A241D7A25001D9263"
-               BuildableName = "signalrUITests.xctest"
-               BlueprintName = "signalrUITests"
-               ReferencedContainer = "container:signalr.xcodeproj">
+               BuildableName = "SignalRClientUITests.xctest"
+               BlueprintName = "SignalRClientUITests"
+               ReferencedContainer = "container:SignalRClient.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -65,9 +79,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EDBEC109241D7A23001D9263"
-            BuildableName = "signalr.app"
-            BlueprintName = "signalr"
-            ReferencedContainer = "container:signalr.xcodeproj">
+            BuildableName = "SignalRClient.app"
+            BlueprintName = "SignalRClient"
+            ReferencedContainer = "container:SignalRClient.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -82,9 +96,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EDBEC109241D7A23001D9263"
-            BuildableName = "signalr.app"
-            BlueprintName = "signalr"
-            ReferencedContainer = "container:signalr.xcodeproj">
+            BuildableName = "SignalRClient.app"
+            BlueprintName = "SignalRClient"
+            ReferencedContainer = "container:SignalRClient.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -11,6 +11,8 @@ import Resolver
 
 extension Resolver: ResolverRegistering {
     public static func registerAllServices() {
-        Resolver.register(factory: { SignalRHubConnectionBuilder() as SignalRHubConnectionBuilderProtocol })
+        Resolver.register(factory: {
+            SignalRHubConnectionBuilder() as SignalRHubConnectionBuilderProtocol
+        })
     }
 }

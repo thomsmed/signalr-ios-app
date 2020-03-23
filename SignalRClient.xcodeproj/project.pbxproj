@@ -8,19 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		ED963271241E28BC003AF2D4 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED963270241E28BC003AF2D4 /* ChatMessage.swift */; };
-		ED963273241E355F003AF2D4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = ED963272241E355F003AF2D4 /* README.md */; };
-		ED963275241E3599003AF2D4 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = ED963274241E3599003AF2D4 /* .gitignore */; };
 		ED963278241E35FB003AF2D4 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = ED963277241E35FB003AF2D4 /* Resolver */; };
 		ED96327C241E3893003AF2D4 /* SignalRHubConnectionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96327B241E3893003AF2D4 /* SignalRHubConnectionBuilder.swift */; };
 		ED96327E241E5410003AF2D4 /* SignalRHubConnectionBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96327D241E5410003AF2D4 /* SignalRHubConnectionBuilderProtocol.swift */; };
 		ED963280241E574B003AF2D4 /* AppDelegate+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96327F241E574B003AF2D4 /* AppDelegate+Injection.swift */; };
 		ED963282241E825F003AF2D4 /* SignalRMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED963281241E825F003AF2D4 /* SignalRMessage.swift */; };
 		EDBEC10E241D7A23001D9263 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBEC10D241D7A23001D9263 /* AppDelegate.swift */; };
-		EDBEC115241D7A23001D9263 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDBEC113241D7A23001D9263 /* Main.storyboard */; };
+		EDBEC115241D7A23001D9263 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDBEC113241D7A23001D9263 /* Chat.storyboard */; };
 		EDBEC117241D7A25001D9263 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDBEC116241D7A25001D9263 /* Assets.xcassets */; };
 		EDBEC11A241D7A25001D9263 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDBEC118241D7A25001D9263 /* LaunchScreen.storyboard */; };
-		EDBEC125241D7A25001D9263 /* signalrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBEC124241D7A25001D9263 /* signalrTests.swift */; };
-		EDBEC130241D7A25001D9263 /* signalrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBEC12F241D7A25001D9263 /* signalrUITests.swift */; };
+		EDBEC125241D7A25001D9263 /* signalrClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBEC124241D7A25001D9263 /* signalrClientTests.swift */; };
+		EDBEC130241D7A25001D9263 /* signalrClientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBEC12F241D7A25001D9263 /* signalrClientUITests.swift */; };
 		EDBEC13E241D840A001D9263 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBEC13D241D840A001D9263 /* ChatViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,17 +47,17 @@
 		ED96327D241E5410003AF2D4 /* SignalRHubConnectionBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalRHubConnectionBuilderProtocol.swift; sourceTree = "<group>"; };
 		ED96327F241E574B003AF2D4 /* AppDelegate+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swift"; sourceTree = "<group>"; };
 		ED963281241E825F003AF2D4 /* SignalRMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalRMessage.swift; sourceTree = "<group>"; };
-		EDBEC10A241D7A23001D9263 /* signalr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = signalr.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDBEC10A241D7A23001D9263 /* SignalRClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SignalRClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDBEC10D241D7A23001D9263 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EDBEC114241D7A23001D9263 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EDBEC114241D7A23001D9263 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Chat.storyboard; sourceTree = "<group>"; };
 		EDBEC116241D7A25001D9263 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EDBEC119241D7A25001D9263 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EDBEC11B241D7A25001D9263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EDBEC120241D7A25001D9263 /* signalrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = signalrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EDBEC124241D7A25001D9263 /* signalrTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signalrTests.swift; sourceTree = "<group>"; };
+		EDBEC120241D7A25001D9263 /* SignalRClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SignalRClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDBEC124241D7A25001D9263 /* signalrClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signalrClientTests.swift; sourceTree = "<group>"; };
 		EDBEC126241D7A25001D9263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EDBEC12B241D7A25001D9263 /* signalrUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = signalrUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EDBEC12F241D7A25001D9263 /* signalrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signalrUITests.swift; sourceTree = "<group>"; };
+		EDBEC12B241D7A25001D9263 /* SignalRClientUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SignalRClientUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDBEC12F241D7A25001D9263 /* signalrClientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signalrClientUITests.swift; sourceTree = "<group>"; };
 		EDBEC131241D7A25001D9263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EDBEC13D241D840A001D9263 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,9 +109,9 @@
 		EDBEC101241D7A23001D9263 = {
 			isa = PBXGroup;
 			children = (
-				EDBEC10C241D7A23001D9263 /* signalr */,
-				EDBEC123241D7A25001D9263 /* signalrTests */,
-				EDBEC12E241D7A25001D9263 /* signalrUITests */,
+				EDBEC10C241D7A23001D9263 /* SignalRClient */,
+				EDBEC123241D7A25001D9263 /* SignalRClientTests */,
+				EDBEC12E241D7A25001D9263 /* SignalRClientUITests */,
 				EDBEC10B241D7A23001D9263 /* Products */,
 				ED963272241E355F003AF2D4 /* README.md */,
 				ED963274241E3599003AF2D4 /* .gitignore */,
@@ -123,14 +121,14 @@
 		EDBEC10B241D7A23001D9263 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EDBEC10A241D7A23001D9263 /* signalr.app */,
-				EDBEC120241D7A25001D9263 /* signalrTests.xctest */,
-				EDBEC12B241D7A25001D9263 /* signalrUITests.xctest */,
+				EDBEC10A241D7A23001D9263 /* SignalRClient.app */,
+				EDBEC120241D7A25001D9263 /* SignalRClientTests.xctest */,
+				EDBEC12B241D7A25001D9263 /* SignalRClientUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		EDBEC10C241D7A23001D9263 /* signalr */ = {
+		EDBEC10C241D7A23001D9263 /* SignalRClient */ = {
 			isa = PBXGroup;
 			children = (
 				EDBEC10D241D7A23001D9263 /* AppDelegate.swift */,
@@ -138,38 +136,38 @@
 				EDBEC13D241D840A001D9263 /* ChatViewController.swift */,
 				ED96327A241E3860003AF2D4 /* Services */,
 				ED963279241E383E003AF2D4 /* Model */,
-				EDBEC113241D7A23001D9263 /* Main.storyboard */,
+				EDBEC113241D7A23001D9263 /* Chat.storyboard */,
 				EDBEC116241D7A25001D9263 /* Assets.xcassets */,
 				EDBEC118241D7A25001D9263 /* LaunchScreen.storyboard */,
 				EDBEC11B241D7A25001D9263 /* Info.plist */,
 			);
-			path = signalr;
+			path = SignalRClient;
 			sourceTree = "<group>";
 		};
-		EDBEC123241D7A25001D9263 /* signalrTests */ = {
+		EDBEC123241D7A25001D9263 /* SignalRClientTests */ = {
 			isa = PBXGroup;
 			children = (
-				EDBEC124241D7A25001D9263 /* signalrTests.swift */,
+				EDBEC124241D7A25001D9263 /* signalrClientTests.swift */,
 				EDBEC126241D7A25001D9263 /* Info.plist */,
 			);
-			path = signalrTests;
+			path = SignalRClientTests;
 			sourceTree = "<group>";
 		};
-		EDBEC12E241D7A25001D9263 /* signalrUITests */ = {
+		EDBEC12E241D7A25001D9263 /* SignalRClientUITests */ = {
 			isa = PBXGroup;
 			children = (
-				EDBEC12F241D7A25001D9263 /* signalrUITests.swift */,
+				EDBEC12F241D7A25001D9263 /* signalrClientUITests.swift */,
 				EDBEC131241D7A25001D9263 /* Info.plist */,
 			);
-			path = signalrUITests;
+			path = SignalRClientUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		EDBEC109241D7A23001D9263 /* signalr */ = {
+		EDBEC109241D7A23001D9263 /* SignalRClient */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EDBEC134241D7A25001D9263 /* Build configuration list for PBXNativeTarget "signalr" */;
+			buildConfigurationList = EDBEC134241D7A25001D9263 /* Build configuration list for PBXNativeTarget "SignalRClient" */;
 			buildPhases = (
 				EDBEC106241D7A23001D9263 /* Sources */,
 				EDBEC107241D7A23001D9263 /* Frameworks */,
@@ -179,17 +177,17 @@
 			);
 			dependencies = (
 			);
-			name = signalr;
+			name = SignalRClient;
 			packageProductDependencies = (
 				ED963277241E35FB003AF2D4 /* Resolver */,
 			);
 			productName = signalr;
-			productReference = EDBEC10A241D7A23001D9263 /* signalr.app */;
+			productReference = EDBEC10A241D7A23001D9263 /* SignalRClient.app */;
 			productType = "com.apple.product-type.application";
 		};
-		EDBEC11F241D7A25001D9263 /* signalrTests */ = {
+		EDBEC11F241D7A25001D9263 /* SignalRClientTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EDBEC137241D7A25001D9263 /* Build configuration list for PBXNativeTarget "signalrTests" */;
+			buildConfigurationList = EDBEC137241D7A25001D9263 /* Build configuration list for PBXNativeTarget "SignalRClientTests" */;
 			buildPhases = (
 				EDBEC11C241D7A25001D9263 /* Sources */,
 				EDBEC11D241D7A25001D9263 /* Frameworks */,
@@ -200,14 +198,14 @@
 			dependencies = (
 				EDBEC122241D7A25001D9263 /* PBXTargetDependency */,
 			);
-			name = signalrTests;
+			name = SignalRClientTests;
 			productName = signalrTests;
-			productReference = EDBEC120241D7A25001D9263 /* signalrTests.xctest */;
+			productReference = EDBEC120241D7A25001D9263 /* SignalRClientTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		EDBEC12A241D7A25001D9263 /* signalrUITests */ = {
+		EDBEC12A241D7A25001D9263 /* SignalRClientUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EDBEC13A241D7A25001D9263 /* Build configuration list for PBXNativeTarget "signalrUITests" */;
+			buildConfigurationList = EDBEC13A241D7A25001D9263 /* Build configuration list for PBXNativeTarget "SignalRClientUITests" */;
 			buildPhases = (
 				EDBEC127241D7A25001D9263 /* Sources */,
 				EDBEC128241D7A25001D9263 /* Frameworks */,
@@ -218,9 +216,9 @@
 			dependencies = (
 				EDBEC12D241D7A25001D9263 /* PBXTargetDependency */,
 			);
-			name = signalrUITests;
+			name = SignalRClientUITests;
 			productName = signalrUITests;
-			productReference = EDBEC12B241D7A25001D9263 /* signalrUITests.xctest */;
+			productReference = EDBEC12B241D7A25001D9263 /* SignalRClientUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -246,7 +244,7 @@
 					};
 				};
 			};
-			buildConfigurationList = EDBEC105241D7A23001D9263 /* Build configuration list for PBXProject "signalr" */;
+			buildConfigurationList = EDBEC105241D7A23001D9263 /* Build configuration list for PBXProject "SignalRClient" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -262,9 +260,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EDBEC109241D7A23001D9263 /* signalr */,
-				EDBEC11F241D7A25001D9263 /* signalrTests */,
-				EDBEC12A241D7A25001D9263 /* signalrUITests */,
+				EDBEC109241D7A23001D9263 /* SignalRClient */,
+				EDBEC11F241D7A25001D9263 /* SignalRClientTests */,
+				EDBEC12A241D7A25001D9263 /* SignalRClientUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -276,9 +274,7 @@
 			files = (
 				EDBEC11A241D7A25001D9263 /* LaunchScreen.storyboard in Resources */,
 				EDBEC117241D7A25001D9263 /* Assets.xcassets in Resources */,
-				ED963273241E355F003AF2D4 /* README.md in Resources */,
-				EDBEC115241D7A23001D9263 /* Main.storyboard in Resources */,
-				ED963275241E3599003AF2D4 /* .gitignore in Resources */,
+				EDBEC115241D7A23001D9263 /* Chat.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,7 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDBEC125241D7A25001D9263 /* signalrTests.swift in Sources */,
+				EDBEC125241D7A25001D9263 /* signalrClientTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,7 +321,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDBEC130241D7A25001D9263 /* signalrUITests.swift in Sources */,
+				EDBEC130241D7A25001D9263 /* signalrClientUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,23 +330,23 @@
 /* Begin PBXTargetDependency section */
 		EDBEC122241D7A25001D9263 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = EDBEC109241D7A23001D9263 /* signalr */;
+			target = EDBEC109241D7A23001D9263 /* SignalRClient */;
 			targetProxy = EDBEC121241D7A25001D9263 /* PBXContainerItemProxy */;
 		};
 		EDBEC12D241D7A25001D9263 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = EDBEC109241D7A23001D9263 /* signalr */;
+			target = EDBEC109241D7A23001D9263 /* SignalRClient */;
 			targetProxy = EDBEC12C241D7A25001D9263 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		EDBEC113241D7A23001D9263 /* Main.storyboard */ = {
+		EDBEC113241D7A23001D9263 /* Chat.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				EDBEC114241D7A23001D9263 /* Base */,
 			);
-			name = Main.storyboard;
+			name = Chat.storyboard;
 			sourceTree = "<group>";
 		};
 		EDBEC118241D7A25001D9263 /* LaunchScreen.storyboard */ = {
@@ -484,13 +480,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 55ATZ58U6M;
-				INFOPLIST_FILE = signalr/Info.plist;
+				INFOPLIST_FILE = SignalRClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.thomsmed.signalr;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SignalRClient;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -502,13 +498,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 55ATZ58U6M;
-				INFOPLIST_FILE = signalr/Info.plist;
+				INFOPLIST_FILE = SignalRClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.thomsmed.signalr;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SignalRClient;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -521,7 +517,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 55ATZ58U6M;
-				INFOPLIST_FILE = signalrTests/Info.plist;
+				INFOPLIST_FILE = SignalRClientTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -532,7 +528,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/signalr.app/signalr";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SignalRClient.app/SignalRClient";
 			};
 			name = Debug;
 		};
@@ -543,7 +539,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 55ATZ58U6M;
-				INFOPLIST_FILE = signalrTests/Info.plist;
+				INFOPLIST_FILE = SignalRClientTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -554,7 +550,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/signalr.app/signalr";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SignalRClient.app/SignalRClient";
 			};
 			name = Release;
 		};
@@ -564,7 +560,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 55ATZ58U6M;
-				INFOPLIST_FILE = signalrUITests/Info.plist;
+				INFOPLIST_FILE = SignalRClientUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -572,9 +568,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.thomsmed.signalrUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = signalr;
+				TEST_TARGET_NAME = SignalRClient;
 			};
 			name = Debug;
 		};
@@ -584,7 +581,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 55ATZ58U6M;
-				INFOPLIST_FILE = signalrUITests/Info.plist;
+				INFOPLIST_FILE = SignalRClientUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -592,16 +589,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.thomsmed.signalrUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = signalr;
+				TEST_TARGET_NAME = SignalRClient;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		EDBEC105241D7A23001D9263 /* Build configuration list for PBXProject "signalr" */ = {
+		EDBEC105241D7A23001D9263 /* Build configuration list for PBXProject "SignalRClient" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EDBEC132241D7A25001D9263 /* Debug */,
@@ -610,7 +608,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EDBEC134241D7A25001D9263 /* Build configuration list for PBXNativeTarget "signalr" */ = {
+		EDBEC134241D7A25001D9263 /* Build configuration list for PBXNativeTarget "SignalRClient" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EDBEC135241D7A25001D9263 /* Debug */,
@@ -619,7 +617,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EDBEC137241D7A25001D9263 /* Build configuration list for PBXNativeTarget "signalrTests" */ = {
+		EDBEC137241D7A25001D9263 /* Build configuration list for PBXNativeTarget "SignalRClientTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EDBEC138241D7A25001D9263 /* Debug */,
@@ -628,7 +626,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EDBEC13A241D7A25001D9263 /* Build configuration list for PBXNativeTarget "signalrUITests" */ = {
+		EDBEC13A241D7A25001D9263 /* Build configuration list for PBXNativeTarget "SignalRClientUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EDBEC13B241D7A25001D9263 /* Debug */,
